@@ -27,13 +27,13 @@ const Header = () => {
         </Navbar.Brand>
         <Navbar.Toggle aria-controls="navbarScroll" />
         <Navbar.Collapse id="navbarScroll">
+        {userInfo && (
+          <>
           <Nav
             className="m-auto my-2 my-lg-0"
             style={{ maxHeight: "100px" }}
             navbarScroll
           >
-            {userInfo && (
-              <>
                 <Nav.Link>
                   <Link
                     to="mynotes"
@@ -54,8 +54,6 @@ const Header = () => {
                     Logout
                   </NavDropdown.Item>
                 </NavDropdown>
-              </>
-            )}
           </Nav>
           <Form className="d-flex">
             <Form.Control
@@ -65,6 +63,8 @@ const Header = () => {
               aria-label="Search"
             />
           </Form>
+          </>
+          )}
         </Navbar.Collapse>
       </Container>
     </Navbar>

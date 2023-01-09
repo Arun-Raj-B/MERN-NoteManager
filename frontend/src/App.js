@@ -7,6 +7,8 @@ import RegisterScreen from "./screens/RegisterScreen/RegisterScreen";
 import LandingPage from "./screens/LandingPage/LandingPage";
 import MyNotes from "./screens/MyNotes/MyNotes";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
+import CreateNote from "./screens/CreateNote/CreateNote";
+import UpdateNote from "./screens/UpdateNote/UpdateNote";
 
 const App = () => (
   <BrowserRouter>
@@ -17,6 +19,8 @@ const App = () => (
         <Route path="login" element={<LoginScreen />} />
         <Route path="register" element={<RegisterScreen />} />
         <Route path="mynotes" element={<MyNotes />} />
+        <Route path="createnote" element={<CreateNote />} />
+        <Route path="note/:id" element={<UpdateNote />} />
       </Routes>
     </main>
     <Footer />

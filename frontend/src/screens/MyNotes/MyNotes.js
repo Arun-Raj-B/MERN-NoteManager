@@ -1,37 +1,75 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { Accordion, Badge, Button } from "react-bootstrap";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
 import MainScreen from "../../components/MainScreen";
+import { deleteNoteAction, listNotes } from "../../actions/notesActions";
+import Loading from "../../components/Loading";
+import ErrorMessage from "../../components/ErrorMessage";
 
 const MyNotes = () => {
-  const [notes, setNotes] = useState([]);
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const noteList = useSelector((state) => state.noteList);
+  const { loading, notes, error } = noteList;
+  const userLogin = useSelector((state) => state.userLogin);
+  const {
+    userInfo: { name },
+  } = userLogin;
+  // const [notes, setNotes] = useState([]);
+
+  const noteCreate = useSelector((state) => state.noteCreate);
+  const { success: successCreate } = noteCreate;
+
+  const noteUpdate = useSelector((state) => state.noteUpdate);
+  const { success: successUpdate } = noteUpdate;
+
+  const noteDelete = useSelector((state) => state.noteDelete);
+  const {
+    loading: loadingDelete,
+    error: errorDelete,
+    success: successDelete,
+  } = noteDelete;
+
   const deleteHandler = (id) => {
     if (window.confirm("Are you sure?")) {
+      dispatch(deleteNoteAction(id));
     }
+    navigate("/mynotes");
   };
 
-  const fetchNotes = async () => {
-    const { data } = await axios.get("/api/notes");
-    setNotes(data);
-  };
+  // const fetchNotes = async () => {
+  //   const { data } = await axios.get("/api/notes");
+  //   setNotes(data);
+  // };
 
   useEffect(() => {
-    fetchNotes();
-  }, []);
+    dispatch(listNotes());
+
+    // fetchNotes();
+  }, [dispatch, successCreate, successUpdate]);
   return (
-    <MainScreen title={"Welcome Back Arun.."}>
+    <MainScreen title={`Welcome Back ${name}..`}>
       <Link to="/createnote">
         <Button style={{ marginLeft: 10, marginBottom: 6 }} size="lg">
           Create new Note
         </Button>
       </Link>
+      {errorDelete && (
+        <ErrorMessage variant="danger">{errorDelete}</ErrorMessage>
+      )}
+      {error && <ErrorMessage variant="danger">{error}</ErrorMessage>}
+      {loading && <Loading />}
+      {loadingDelete && <Loading />}
       {notes.map((note) => (
         <>
           <Accordion key={note._id}>
             <Accordion.Item eventKey="0">
               <Accordion.Header>
-                <Button href={`/note/${note._id}`}>Edit</Button>
+                <Link to={`/note/${note._id}`}>
+                  <Button>Edit</Button>
+                </Link>
                 <Button
                   variant="danger"
                   className="mx-2"
@@ -46,7 +84,7 @@ const MyNotes = () => {
                 <blockquote className="blockquote mb-0">
                   <p className="fs-6 mt-2">{note.content}</p>
                   <footer style={{ fontSize: 14, opacity: 0.5 }}>
-                    Created on - date
+                    Created on - {note.createdAt.substring(0, 10)}
                   </footer>
                 </blockquote>
               </Accordion.Body>
