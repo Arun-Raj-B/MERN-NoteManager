@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
 import { userLogout } from "../../features/users/userLoginSlice";
 
-const Header = () => {
+const Header = ({ setSearch }) => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const userLogin = useSelector((state) => state.userLogin);
@@ -17,6 +17,8 @@ const Header = () => {
     localStorage.removeItem("userInfo");
     navigate("/");
   };
+
+  
   return (
     <Navbar bg="primary" expand="lg" variant="dark">
       <Container>
@@ -27,13 +29,13 @@ const Header = () => {
         </Navbar.Brand>
         <Navbar.Toggle aria-controls="navbarScroll" />
         <Navbar.Collapse id="navbarScroll">
-        {userInfo && (
-          <>
-          <Nav
-            className="m-auto my-2 my-lg-0"
-            style={{ maxHeight: "100px" }}
-            navbarScroll
-          >
+          {userInfo && (
+            <>
+              <Nav
+                className="m-auto my-2 my-lg-0"
+                style={{ maxHeight: "100px" }}
+                navbarScroll
+              >
                 <Nav.Link>
                   <Link
                     to="mynotes"
@@ -54,16 +56,17 @@ const Header = () => {
                     Logout
                   </NavDropdown.Item>
                 </NavDropdown>
-          </Nav>
-          <Form className="d-flex">
-            <Form.Control
-              type="search"
-              placeholder="Search"
-              className="me-2"
-              aria-label="Search"
-            />
-          </Form>
-          </>
+              </Nav>
+              <Form className="d-flex">
+                <Form.Control
+                  type="search"
+                  placeholder="Search"
+                  className="me-2"
+                  aria-label="Search"
+                  onChange={(e)=>setSearch(e.target.value)}
+                />
+              </Form>
+            </>
           )}
         </Navbar.Collapse>
       </Container>

@@ -7,6 +7,8 @@ import Loading from "../../components/Loading";
 import ErrorMessage from "../../components/ErrorMessage";
 import ReactMarkdown from "react-markdown";
 import { useNavigate } from "react-router-dom";
+import { confirmAlert } from "react-confirm-alert";
+import "react-confirm-alert/src/react-confirm-alert.css";
 
 function CreateNote({ history }) {
   const [title, setTitle] = useState("");

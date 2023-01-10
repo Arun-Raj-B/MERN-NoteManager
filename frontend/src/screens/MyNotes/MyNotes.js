@@ -7,8 +7,10 @@ import MainScreen from "../../components/MainScreen";
 import { deleteNoteAction, listNotes } from "../../actions/notesActions";
 import Loading from "../../components/Loading";
 import ErrorMessage from "../../components/ErrorMessage";
+import { confirmAlert } from "react-confirm-alert";
+import "react-confirm-alert/src/react-confirm-alert.css";
 
-const MyNotes = () => {
+const MyNotes = ({ search }) => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const noteList = useSelector((state) => state.noteList);
@@ -33,10 +35,28 @@ const MyNotes = () => {
   } = noteDelete;
 
   const deleteHandler = (id) => {
-    if (window.confirm("Are you sure?")) {
-      dispatch(deleteNoteAction(id));
-    }
-    navigate("/mynotes");
+    confirmAlert({
+      title: "Confirm",
+      message: "Are you sure you need to delete ?",
+      buttons: [
+        {
+          label: "Yes",
+          onClick: () => {
+            dispatch(deleteNoteAction(id));
+            navigate("/mynotes");
+          },
+        },
+        {
+          label: "No",
+          onClick: () => navigate("/mynotes"),
+        },
+      ],
+    });
+
+    // if (window.confirm("Are you sure?")) {
+    //   dispatch(deleteNoteAction(id));
+    // }
+    // navigate("/mynotes");
   };
 
   // const fetchNotes = async () => {
@@ -48,7 +68,7 @@ const MyNotes = () => {
     dispatch(listNotes());
 
     // fetchNotes();
-  }, [dispatch, successCreate, successUpdate]);
+  }, [dispatch, successCreate, successUpdate, successDelete]);
   return (
     <MainScreen title={`Welcome Back ${name}..`}>
       <Link to="/createnote">
@@ -62,36 +82,42 @@ const MyNotes = () => {
       {error && <ErrorMessage variant="danger">{error}</ErrorMessage>}
       {loading && <Loading />}
       {loadingDelete && <Loading />}
-      {notes.map((note) => (
-        <>
-          <Accordion key={note._id}>
-            <Accordion.Item eventKey="0">
-              <Accordion.Header>
-                <Link to={`/note/${note._id}`}>
-                  <Button>Edit</Button>
-                </Link>
-                <Button
-                  variant="danger"
-                  className="mx-2"
-                  onClick={() => deleteHandler(note._id)}
-                >
-                  Delete
-                </Button>
-                <span>{note.title}</span>
-              </Accordion.Header>
-              <Accordion.Body>
-                <Badge bg="success">Category - {note.category}</Badge>
-                <blockquote className="blockquote mb-0">
-                  <p className="fs-6 mt-2">{note.content}</p>
-                  <footer style={{ fontSize: 14, opacity: 0.5 }}>
-                    Created on - {note.createdAt.substring(0, 10)}
-                  </footer>
-                </blockquote>
-              </Accordion.Body>
-            </Accordion.Item>
-          </Accordion>
-        </>
-      ))}
+      {notes
+        .filter((filteredNote) =>
+          filteredNote.title.toLowerCase().includes(search.toLowerCase())
+        )
+        .map((note) => (
+          <>
+            <Accordion key={note._id}>
+              <Accordion.Item eventKey="0">
+                <Accordion.Header>
+                  <Link to={`/note/${note._id}`}>
+                    <Button>Edit</Button>
+                  </Link>
+                  <Button
+                    variant="danger"
+                    className="mx-2"
+                    onClick={() => deleteHandler(note._id)}
+                  >
+                    Delete
+                  </Button>
+                  <span className="lead" style={{ marginLeft: "30%" }}>
+                    {note.title}
+                  </span>
+                </Accordion.Header>
+                <Accordion.Body>
+                  <Badge bg="success">Category - {note.category}</Badge>
+                  <blockquote className="blockquote mb-0">
+                    <p className="fs-6 mt-2">{note.content}</p>
+                    <footer style={{ fontSize: 14, opacity: 0.5 }}>
+                      Created on - {note.createdAt.substring(0, 10)}
+                    </footer>
+                  </blockquote>
+                </Accordion.Body>
+              </Accordion.Item>
+            </Accordion>
+          </>
+        ))}
     </MainScreen>
   );
 };

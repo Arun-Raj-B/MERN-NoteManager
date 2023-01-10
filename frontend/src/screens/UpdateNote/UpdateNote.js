@@ -8,6 +8,8 @@ import ErrorMessage from "../../components/ErrorMessage";
 import ReactMarkdown from "react-markdown";
 import { useNavigate, useParams } from "react-router-dom";
 import axios from "axios";
+import { confirmAlert } from "react-confirm-alert";
+import "react-confirm-alert/src/react-confirm-alert.css";
 
 function UpdateNote() {
   let { id } = useParams();
@@ -31,10 +33,28 @@ function UpdateNote() {
   } = noteDelete;
 
   const deleteHandler = (id) => {
-    if (window.confirm("Are you sure?")) {
-      dispatch(deleteNoteAction(id));
-    }
-    navigate("/mynotes");
+    confirmAlert({
+      title: "Confirm",
+      message: "Are you sure you need to delete ?",
+      buttons: [
+        {
+          label: "Yes",
+          onClick: () => {
+            dispatch(deleteNoteAction(id));
+            navigate("/mynotes");
+          },
+        },
+        {
+          label: "No",
+          onClick: () => navigate("/mynotes"),
+        },
+      ],
+    });
+
+    // if (window.confirm("Are you sure?")) {
+    //   dispatch(deleteNoteAction(id));
+    // }
+    // navigate("/mynotes");
   };
 
   //   console.log(note);
