@@ -18,7 +18,6 @@ const Header = ({ setSearch }) => {
     navigate("/");
   };
 
-  
   return (
     <Navbar bg="primary" expand="lg" variant="dark">
       <Container>
@@ -45,9 +44,16 @@ const Header = ({ setSearch }) => {
                   </Link>
                 </Nav.Link>
                 <NavDropdown title={userInfo.name} id="navbarScrollingDropdown">
-                  <NavDropdown.Item href="#action3">
-                    My Profile
+                  <NavDropdown.Item>
+                    <Link
+                      className="text-black"
+                      to="profile"
+                      style={{ textDecoration: "none" }}
+                    >
+                      My Profile
+                    </Link>
                   </NavDropdown.Item>
+
                   <NavDropdown.Item
                     onClick={() => {
                       logoutHandler();
@@ -63,7 +69,7 @@ const Header = ({ setSearch }) => {
                   placeholder="Search"
                   className="me-2"
                   aria-label="Search"
-                  onChange={(e)=>setSearch(e.target.value)}
+                  onChange={(e) => setSearch(e.target.value)}
                 />
               </Form>
             </>

@@ -78,7 +78,7 @@ module.exports = {
       });
     } else {
       res.status(404);
-      throw new Error("User Not Found");
+      throw new Error("User Not Found!");
     }
   }),
 };

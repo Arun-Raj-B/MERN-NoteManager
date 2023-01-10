@@ -9,10 +9,10 @@ import MyNotes from "./screens/MyNotes/MyNotes";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import CreateNote from "./screens/CreateNote/CreateNote";
 import UpdateNote from "./screens/UpdateNote/UpdateNote";
+import ProfileScreen from "./screens/ProfileScreen/ProfileScreen";
 
 const App = () => {
   const [search, setSearch] = useState("");
-  // console.log(search);
   return (
     <BrowserRouter>
       <Header setSearch={setSearch} />
@@ -24,6 +24,7 @@ const App = () => {
           <Route path="mynotes" element={<MyNotes search={search} />} />
           <Route path="createnote" element={<CreateNote />} />
           <Route path="note/:id" element={<UpdateNote />} />
+          <Route path="profile" element={<ProfileScreen />} />
         </Routes>
       </main>
       <Footer />

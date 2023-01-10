@@ -22,4 +22,4 @@ const userRegisterSlice = createSlice({
 
 export default userRegisterSlice.reducer;
 export const { userRegisterReq, userRegisterSuccess, userRegisterFail } =
-  userRegisterSlice.actions;
+  userRegisterSlice.actions; 
