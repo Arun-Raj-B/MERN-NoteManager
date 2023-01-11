@@ -10,6 +10,8 @@ const Header = ({ setSearch, setUserSearch, setAdmin, admin }) => {
   const userLogin = useSelector((state) => state.userLogin);
   const { userInfo } = userLogin;
 
+  const set = userInfo ? (userInfo.isAdmin ? setAdmin(true) : null) : null;
+
   useEffect(() => {}, [userInfo]);
 
   const logoutHandler = () => {
@@ -100,6 +102,14 @@ const Header = ({ setSearch, setUserSearch, setAdmin, admin }) => {
                       style={{ color: "white", textDecoration: "none" }}
                     >
                       My Notes
+                    </Link>
+                  </Nav.Link>
+                  <Nav.Link>
+                    <Link
+                      to="admin"
+                      style={{ color: "white", textDecoration: "none" }}
+                    >
+                      Dashboard
                     </Link>
                   </Nav.Link>
                   <NavDropdown
