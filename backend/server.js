@@ -7,11 +7,17 @@ const noteRoutes = require("./routes/notesRoutes");
 const connectDB = require("./config/db");
 const { notFound, errorHandler } = require("./middlewares/errorMiddleware");
 const path = require("path");
+const cors = require("cors");
 
 const app = express();
 dotenv.config();
 connectDB();
 app.use(express.json());
+app.use(
+  cors({
+    origin: ["http://localhost:3000", "https://note-maker-app.onrender.com/"],
+  })
+);
 
 app.use("/api/users", userRoutes);
 app.use("/api/admin", adminRoutes);
