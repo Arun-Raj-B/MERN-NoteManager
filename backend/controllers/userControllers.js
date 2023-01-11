@@ -41,6 +41,10 @@ module.exports = {
     const user = await User.findOne({ email });
 
     if (user && (await user.matchPassword(password))) {
+      if (user.blocked) {
+        res.status(403);
+        throw new Error("You are blocked by the admin");
+      }
       res.json({
         _id: user._id,
         name: user.name,

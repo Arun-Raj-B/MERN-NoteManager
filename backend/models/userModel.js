@@ -21,6 +21,11 @@ const userSchema = mongoose.Schema(
       required: true,
       default: false,
     },
+    blocked: {
+      type: Boolean,
+      required: true,
+      default: false,
+    },
     pic: {
       type: String,
       required: true,

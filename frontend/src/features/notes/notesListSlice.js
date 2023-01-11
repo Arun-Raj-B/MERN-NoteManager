@@ -25,5 +25,8 @@ const notesListSlice = createSlice({
 });
 
 export default notesListSlice.reducer;
-export const { notesListReq, notesListSuccess, notesListFail } =
-  notesListSlice.actions;
+export const {
+  notesListReq,
+  notesListSuccess,
+  notesListFail,
+} = notesListSlice.actions;

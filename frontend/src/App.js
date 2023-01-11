@@ -10,12 +10,21 @@ import { BrowserRouter, Route, Routes } from "react-router-dom";
 import CreateNote from "./screens/CreateNote/CreateNote";
 import UpdateNote from "./screens/UpdateNote/UpdateNote";
 import ProfileScreen from "./screens/ProfileScreen/ProfileScreen";
+import AdminLandingPage from "./screens/AdminLandingPage/AdminLandingPage";
+import UpdateUser from "./screens/UpdateUser/UpdateUser";
 
 const App = () => {
   const [search, setSearch] = useState("");
+  const [userSearch, setUserSearch] = useState("");
+  const [admin, setAdmin] = useState(false);
   return (
     <BrowserRouter>
-      <Header setSearch={setSearch} />
+      <Header
+        setSearch={setSearch}
+        setUserSearch={setUserSearch}
+        setAdmin={setAdmin}
+        admin={admin}
+      />
       <main>
         <Routes>
           <Route path="/" element={<LandingPage />} />
@@ -25,6 +34,16 @@ const App = () => {
           <Route path="createnote" element={<CreateNote />} />
           <Route path="note/:id" element={<UpdateNote />} />
           <Route path="profile" element={<ProfileScreen />} />
+          <Route
+            path="admin"
+            element={
+              <AdminLandingPage userSearch={userSearch} setAdmin={setAdmin} />
+            }
+          />
+          <Route
+            path="admin/user/:id"
+            element={<UpdateUser setAdmin={setAdmin} />}
+          />
         </Routes>
       </main>
       <Footer />
