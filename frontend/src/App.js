@@ -13,6 +13,8 @@ import ProfileScreen from "./screens/ProfileScreen/ProfileScreen";
 import AdminLandingPage from "./screens/AdminLandingPage/AdminLandingPage";
 import UpdateUser from "./screens/UpdateUser/UpdateUser";
 
+export const URL = process.env.REACT_APP_SERVER_URL;
+
 const App = () => {
   const [search, setSearch] = useState("");
   const [userSearch, setUserSearch] = useState("");
