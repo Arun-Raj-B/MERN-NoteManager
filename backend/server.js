@@ -23,12 +23,6 @@ app.use("/api/users", userRoutes);
 app.use("/api/admin", adminRoutes);
 app.use("/api/notes", noteRoutes);
 
-app.use(express.static(path.join(__dirname, "build")));
-
-app.get("/", function (req, res) {
-  res.sendFile(path.join(__dirname, "build", "index.html"));
-});
-
 app.use(notFound);
 app.use(errorHandler);
 
