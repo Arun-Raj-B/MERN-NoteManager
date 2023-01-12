@@ -13,7 +13,11 @@ const app = express();
 dotenv.config();
 connectDB();
 app.use(express.json());
-app.use(cors());
+app.use(
+  cors({
+    origin: ["http://localhost:3000", "https://note-maker-app.onrender.com"],
+  })
+);
 
 app.use("/api/users", userRoutes);
 app.use("/api/admin", adminRoutes);
