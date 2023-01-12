@@ -5,7 +5,7 @@ const initialState = {
   error: null,
 };
 
-const userBlockSlice = createSlice({
+const userBlockSlice = createSlice({ 
   name: "admin",
   initialState,
   reducers: {
