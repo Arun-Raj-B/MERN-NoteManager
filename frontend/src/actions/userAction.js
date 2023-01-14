@@ -35,6 +35,8 @@ export const login = (email, password) => async (dispatch) => {
       },
       config
     );
+    
+    console.log(data)
 
     dispatch(userLoginSuccess(data));
 
