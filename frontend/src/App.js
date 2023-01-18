@@ -13,7 +13,7 @@ import ProfileScreen from "./screens/ProfileScreen/ProfileScreen";
 import AdminLandingPage from "./screens/AdminLandingPage/AdminLandingPage";
 import UpdateUser from "./screens/UpdateUser/UpdateUser";
 
-export const URL = process.env.REACT_APP_SERVER_URL;
+export const URL = "https://note-maker-app-backend.onrender.com";
 
 const App = () => {
   const [search, setSearch] = useState("");
