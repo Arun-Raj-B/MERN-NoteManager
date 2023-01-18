@@ -11,6 +11,9 @@ const app = express();
 dotenv.config();
 connectDB();
 app.use(express.json());
+app.use(cors({
+origin:"https://note-maker-for-all.onrender.com"
+}))
 
 app.use("/api/users", userRoutes);
 app.use("/api/admin", adminRoutes);
