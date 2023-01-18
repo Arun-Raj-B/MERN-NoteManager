@@ -6,6 +6,7 @@ const adminRoutes = require("./routes/adminRoutes");
 const noteRoutes = require("./routes/notesRoutes");
 const connectDB = require("./config/db");
 const { notFound, errorHandler } = require("./middlewares/errorMiddleware");
+const cors = require('cors')
 
 const app = express();
 dotenv.config();
